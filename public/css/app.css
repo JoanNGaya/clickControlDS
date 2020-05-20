@@ -1,0 +1,4 @@
+.book-card:hover {
+    background: green;
+    cursor: pointer;
+}

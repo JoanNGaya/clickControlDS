@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Form\BookType;
 use App\Repository\BookRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,13 +34,37 @@ class BookController extends AbstractController
     /**
      * @Route("/new", name="book_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SluggerInterface $slugger): Response
     {
         $book = new Book();
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $images = $form->get('photo_urls')->getData();
+            $imgArray = [];
+
+            if ($images) {
+                foreach ($images as $image) {
+                    $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                    try {
+                        $image->move(
+                            $this->getParameter('book_images_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        // Control the exception
+                    }
+
+                    $imgArray[] = [$newFilename];
+                }
+                $book->setPhotoUrls($imgArray);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($book);
             $entityManager->flush();
@@ -82,18 +107,4 @@ class BookController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-    /**
-     * @Route("/{id}", name="book_delete", methods={"DELETE"})
-     */
-    /*public function delete(Request $request, Book $book): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$book->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($book);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('book_index');
-    }*/
 }

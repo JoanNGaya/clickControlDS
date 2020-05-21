@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>¿Que quieres hacer?</h1>
+
+        <div class="main-actions">
+            <a href="{{ path('book_index') }}">Ver catálogo de libros</a>
+            <a href="{{ path('book_new') }}">Añadir Libro</a>
+        </div>
+    </div>
+
+{% endblock %}

@@ -4,34 +4,54 @@
 
 {% block body %}
 
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container">
+        <div class="row books-grid">
             {% for book in books  %}
-                <div class="book-card col-xl-3">
-                    <div class="book-id" hidden>{{ book.id }}</div>
-                    <p> {{ book.title }} </p>
-                    <p class="isbn"> {{ book.isbn }} </p>
-                    <button class="btn btn-danger delete-book">Delete</button>
+                <div class="book-card col-xl-6">
+                    <div class="book-card-info">
+                        <div class="book-image">
+                            {%  if book.getPhotoUrls() is empty %}
+                                <img src="{{ asset('uploads/books/Image-not-found.gif') }}">
+                            {% else %}
+                                <img src="{{ asset('uploads/books/' ~ book.getPhotoUrls()|first|first) }}">
+                            {% endif %}
+                        </div>
+                        <div class="book-info">
+                            <div><span class="book-id" hidden>{{ book.id }}</span></div>
+                            <div><span class="isbn" hidden> {{ book.isbn }} </span></div>
+                            <div class="book-title"><strong> {{ book.title }} </strong></div>
+                            <div class="book-category"> {{ book.category }} </div>
+                            <div class="book-description"> {{ book.description }} </div>
+                        </div>
+                    </div>
+                    <div class="book-actions">
+                        <button class="btn btn-info more-info-book">More Info</button>
+                        <button class="btn btn-danger delete-book">Delete</button>
+                    </div>
                 </div>
             {% endfor %}
         </div>
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal book-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title"><span></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div class="modal-book-title"></div>
+                    <div class="modal-book-isbn"></div>
+                    <div class="modal-book-subtitle"></div>
+                    <div class="modal-book-author"></div>
+                    <div class="modal-book-description"></div>
+                    <div class="modal-book-category"></div>
+                    <div class="modal-book-publisher"></div>
+                    <div class="modal-book-pages"></div>
+                    <div class="modal-book-website"></div>
                 </div>
             </div>
         </div>

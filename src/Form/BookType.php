@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Book;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +27,12 @@ class BookType extends AbstractType
             ->add('description')
             ->add('website')
             ->add('category')
-            //->add('photo_urls')
+            ->add('photo_urls', FileType::class, [
+                'mapped' => false,
+                'label' => 'Add images',
+                'multiple' => true,
+                'required' => false,
+            ])
         ;
     }
 

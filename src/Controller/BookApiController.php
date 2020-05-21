@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/book/api")
+ */
 class BookApiController extends AbstractController
 {
     private $bookRepository;
@@ -21,7 +24,7 @@ class BookApiController extends AbstractController
     }
 
     /**
-     * @Route("/book/api", name="get_all_books", methods={"GET"})
+     * @Route("", name="get_all_books", methods={"GET"})
      */
     public function getAll(): JsonResponse
     {
@@ -39,7 +42,7 @@ class BookApiController extends AbstractController
     }
 
     /**
-     * @Route("book/api/booksDrama", name="get_drama_books", methods={"GET"})
+     * @Route("/booksDrama", name="get_drama_books", methods={"GET"})
      */
     public function getDramaBooks(): JsonResponse
     {
@@ -57,7 +60,7 @@ class BookApiController extends AbstractController
     }
 
     /**
-     * @Route("book/api/booksBefore2013", name="get_books_before_2013", methods={"GET"})
+     * @Route("/booksBefore2013", name="get_books_before_2013", methods={"GET"})
      */
     public function getBooksBefore2013(): JsonResponse
     {
@@ -76,7 +79,7 @@ class BookApiController extends AbstractController
     }
 
     /**
-     * @Route("/book/api", name="add_book", methods={"POST"})
+     * @Route("", name="add_book", methods={"POST"})
      */
     public function add(Request $request) : JsonResponse
     {
@@ -87,7 +90,7 @@ class BookApiController extends AbstractController
     }
 
     /**
-     * @Route("/book/api/{isbn}", name="get_one_book", methods={"GET"})
+     * @Route("/{isbn}", name="get_one_book", methods={"GET"})
      */
     public function getBook($isbn): JsonResponse
     {
@@ -99,7 +102,7 @@ class BookApiController extends AbstractController
     }
 
     /**
-     * @Route("/book/api/{id}", name="delete_book", methods={"DELETE"})
+     * @Route("/{id}", name="delete_book", methods={"DELETE"})
      */
     public function delete($id): JsonResponse
     {
@@ -126,7 +129,8 @@ class BookApiController extends AbstractController
             'pages' => $book->getPages(),
             'description' => $book->getDescription(),
             'website' => $book->getWebsite(),
-            'category' => $book->getCategory()
+            'category' => $book->getCategory(),
+            'photUrls' => $book->getPhotoUrls()
         );
     }
 }

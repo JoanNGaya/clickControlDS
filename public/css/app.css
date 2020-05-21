@@ -1,4 +1,113 @@
-.book-card:hover {
-    background: green;
-    cursor: pointer;
+
+.form-card {
+    width: 40%;
+    margin: auto;
+    margin-top: 50px;
+    background: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.form-card-title {
+    padding: 15px;
+    margin: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.form-card-body {
+    padding: 15px;
+}
+
+.book-card-info{
+    display: flex;
+}
+
+.book-image, .book-info {
+    flex: 1;
+}
+
+.form-card-body .row {
+    margin-bottom: 1.0rem;
+}
+
+.form-card-footer button {
+    background: #28bd9f;
+    margin: 15px;
+    padding: 10px 30px;
+}
+
+#book_photo_urls {
+    display: block;
+}
+
+.books-grid {
+    margin-top: 100px;
+}
+
+.book-card {
+    margin-bottom: 80px;
+}
+
+.book-info, .book-image {
+    width: 50%;
+    float: left;
+    margin: 0;
+}
+
+.book-info span {
+    display: block;
+}
+
+.book-image img {
+    max-width: 255px;
+    padding-right: 15px;
+}
+
+.book-actions {
+    width: 100%;
+    clear: both;
+    margin-top: 10px;
+}
+
+.book-category {
+    color: #aaa;
+    border-bottom: solid 1px #aaa;
+}
+
+.book-description {
+    color: #aaa;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.modal-title span, .modal-book-description {
+    font-style: italic;
+    color: #ddd;
+}
+
+.modal-title span {
+    display: block;
+    font-size: 1rem;
+}
+
+.main-actions a {
+    display: block;
+    padding: 15px;
+    color: white;
+    background: #28bd9f;
+    float: left;
+    margin-right: 27px;
+}
+
+@media (max-width: 575px) {
+
+    .book-card-info{
+        display: block;
+    }
+
+    .book-info, .book-image {
+        width: 100%;
+        float: none;
+        margin: auto;
+        height: inherit;
+    }
 }
